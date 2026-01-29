@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-dep-mysql
+  labels:
+    app: httpd-mysql
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: httpd-mysql
+  template:
+    metadata:
+      labels:
+        app: httpd-mysql
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:2.4
+        ports:
+        - containerPort: 80
+        env:
+        - name: MYSQL_HOST
+          value: "mysql-service"
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+
+
+#Step:1 kubectl create deployment httpd-dep-mysql --image=httpd-mysql
+#kubectl create deployment → creates a Deployment object.
+#mytest → is the name of your Deployment.
+#--image=httpd-mysql → specifies the container image to use.
+#Step:2kubectl get deployments
+#kubectl get pods
+#Step:3
+#kubectl expose deployment mytest --type=LoadBalancer --port=80

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-annot-strategy
+  labels:
+    app: ngginx
+  annotations:
+    deployment.kubernetes.io/change-cause: "Initial deployment of web-annot-strategy"
+    deployment.kubernetes.io/revision: "1"
+    deployment.kubernetes.io/strategy: "Recreate"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ngginx
+  strategy:
+    type: Recreate
+   #type of deployment strategy
+   # type: RollingUpdate
+    #rollingUpdate:
+    #  maxUnavailable: 1
+     # maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: ngginx
+    spec:
+      containers:
+      - name: ngginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
