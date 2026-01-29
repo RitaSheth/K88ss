@@ -3,34 +3,35 @@ kind: Deployment
 metadata:
   name: web
   labels:
-    app: nginx
+    app: web
   annotations:
     deployment.kubernetes.io/change-cause: "Initial deployment of web-rollingup-strategy"
     deployment.kubernetes.io/revision: "1"
-    deployment.kubernetes.io/strategy: "RollingUpdate"\
+    deployment.kubernetes.io/strategy: "RollingUpdate"
 spec:
   replicas: 3
-  selector:
+  selector:                  #How Deployment finds pods
     matchLabels:
-      app: nginx
-  strategy:
-    type: RollingUpdate
+      app: web
+  strategy:                  #deployment strategy type//How updates happen
+    type: RollingUpdate      #rolling update will be used for updating the deployment and not recreate
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1 
-  template:
+      maxUnavailable: 1      #number of pods that can be unavailable during the update
+      maxSurge: 1            #number of pods that can be created above the desired number of pods during the update
+  template:                  #Labels applied to pods
     metadata:
       labels:
-        app: nginx
+        app: web
+        tier: frontend      #additional label frontend meaning for the pod for service selector 
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest
+      - name: web
+        image: nginx         #Actual running software inside the pod
         ports:
         - containerPort: 80
 
 ---
-apiVersion: v1
+apiVersion: v1 
 kind: Service
 metadata:
   name: web-service 
@@ -45,4 +46,4 @@ spec:
   #type: ClusterIP
   #type: NodePort
   #type: ExternalName
-          
+
