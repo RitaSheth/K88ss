@@ -23,10 +23,13 @@ spec:
       labels:
         app: web
         tier: frontend      #additional label frontend meaning for the pod for service selector 
+        version: v10     #version label for the pod # 1st i gav ethis version
+        version2: v20   #2nd version label for the pod # this become latest updated
     spec:
       containers:
       - name: web
-        image: nginx         #Actual running software inside the pod
+       # image: nginx         # Actual running software inside the pod  #so now this became old #1st i created this
+        image: nginx:latest    # specific version of nginx image new version/latest i added ,#2nd new version added
         resources:
           requests:          #resource requests for cpu and memory
             memory: "64Mi"
