@@ -27,6 +27,13 @@ spec:
       containers:
       - name: web
         image: nginx         #Actual running software inside the pod
+        resources:
+          requests:          #resource requests for cpu and memory
+            memory: "64Mi"
+            cpu: "250m"
+          limits:            #resource limits for cpu and memory
+            memory: "128Mi"
+            cpu: "500m"
         ports:
         - containerPort: 80
 
