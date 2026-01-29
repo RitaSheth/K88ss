@@ -6,7 +6,7 @@ metadata:
     app: web
   annotations:
     deployment.kubernetes.io/version: "deployment updated to v1"
-    deployment.kubernetes.io/change-cause: "Initial deployment of web-rollingup-strategy"
+    deployment.kubernetes.io/change-cause: "Initial deployment 1st"
     deployment.kubernetes.io/revision: "2"
     deployment.kubernetes.io/strategy: "RollingUpdate"
 spec:
