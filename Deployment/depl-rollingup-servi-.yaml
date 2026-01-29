@@ -23,8 +23,8 @@ spec:
       labels:
         app: web
         tier: frontend      #additional label frontend meaning for the pod for service selector 
-        #version: v10     #version label for the pod # 1st i gav ethis version
-        version2: v20   #2nd version label for the pod # this become latest
+        version: v10     #version label for the pod # 1st i gav ethis version
+       # version2: v20   #2nd version label for the pod # this become latest
     spec:
       containers:
       - name: web
